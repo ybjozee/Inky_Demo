@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} InkyMail{% endblock %}
+
+{% block body %}
+    <div class="my-5 mx-auto" style="width: 60%;">
+        <h2>InkyMail</h2>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <form class="needs-validation" novalidate id="form" method="post">
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="10" name="message" required></textarea>
+            </div>
+            <div class="recipients my-3">
+                <h3 class="fs-6">Recipient(s)</h3>
+                <div class="row g-3 mb-3 recipientInput" id="recipient_0">
+                    <div class="col-5">
+                        <input type="email" class="form-control" placeholder="Enter an email" name="recipients[0]"
+                               required>
+                        <div class="invalid-feedback">
+                            Please provide the recipient's email in a valid format.
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group">
+                            <button class="btn" type="button" onclick="handleAddRecipientButtonClick()">
+                                <i class="bi bi-patch-plus text-success" style="font-size: 1.3rem"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/recipient.js') }}"></script>
+    <script src="{{ asset('js/formValidator.js') }}"></script>
+{% endblock %}
